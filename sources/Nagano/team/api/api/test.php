@@ -2,20 +2,17 @@
 //----------------------------
 //データ準備
 //----------------------------
-
-const FIELD_COLUMN = 9;       //横のマス目
-const FIELD_ROW    = 9;       //縦のマス目
-
-$data = [
-	  ['name'=>'Dragon', 'rare'=>'SR']
-	, ['name'=>'Slime',  'rare'=>'N']
-];
+require('SaveDataClass.php');
+$data = new SaveDataClass();
 
 //----------------------------
 //JSON形式に変換
 //----------------------------
-$json = json_encode($data);
-
+// データベースから全プレイヤーのデータを取得
+$json = json_encode($data->getPlayerData());
+// データの更新
+$data->updateData(1, 1, 1);
+$data->end();
 //----------------------------
 //クライアントに出力
 //----------------------------
