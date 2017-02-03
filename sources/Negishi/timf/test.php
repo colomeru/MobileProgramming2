@@ -20,7 +20,7 @@
 		</form>
 		
 		<?php 
-			$val = include("SetData.php");
+			$val = include("SetStartData.php");
 			if ($val) {
 				echo "OK";
 			} else	{
@@ -34,7 +34,7 @@
 
 			/*
 			$.ajax({
-				  url: "/timf/getStartUserID.php"
+				  url: "/timf/GetStartUserID.php"
 				, dataType: "json"
 				, success: function( json ) {
 						result = json;
