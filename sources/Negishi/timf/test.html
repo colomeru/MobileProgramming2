@@ -12,6 +12,7 @@
 	<body>
 		<div id="result"></div>
 		<form>
+			<Input id="drawbtn" type="button" value="DRAW" onclick="">
 			<Input id="testbtn" type="button" value="TEST" onclick="">
 		</form>
 
@@ -19,22 +20,13 @@
 			<Input id="update" type="button" value="UPDATE" onclick="">
 		</form>
 		
-		<?php 
-			$val = include("SetStartData.php");
-			if ($val) {
-				echo "OK";
-			} else	{
-				echo "NO";
-			};
-		?>
-
 		<script src="js/jquery-3.1.1.min.js"></script>
 		<script>
 		$(document).ready(function(){
 
 			/*
 			$.ajax({
-				  url: "/timf/GetStartUserID.php"
+				  url: "./GetStartUserID.php"
 				, dataType: "json"
 				, success: function( json ) {
 						result = json;
@@ -43,17 +35,44 @@
 			});
 			*/
 
+			// データ配置
+			$.ajax({
+				  url: "./SetStartData.php"
+				, dataType: "json"
+				, success: function( json ) {
+					result = json;
+					$("#result").html(result);
+				}
+			});
+
 			$("#testbtn").click(function(){
 				$.ajax({
-					  url: "/timf/GetStartUserID.php"
+					  url: "./MapDataClass.php"
 					, dataType: "json"
 					, success: function( json ) {
-							result = json;
+						result= json;
+						$("#result").html(result);
+					}
+				});
+		  	});
+
+			// 所持魚数表示
+			$("#drawbtn").click(function(){
+				$.ajax({
+					  url: "CountFish.php"
+					, dataType: "json"
+					, success: function( json ) {
+							result="";
+							for (i=0; i <json.length; ++i) {
+								temp = json[i];
+								result += temp["id"] + ":" + temp["fish_sum"] + "<br>";							
+							}
 						  $("#result").html(result);
 					}
 				});
 		  	});
 		  	
+
 		  	$("#update").click(function(){
 		  		
 		  		window.location.reload();
